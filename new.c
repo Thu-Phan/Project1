@@ -18,22 +18,25 @@ unsigned char *sub(unsigned char *background, unsigned char *girl, unsigned char
     {
         for (int j = 0; j < width; j++)
         {
+
+            int sum = 0;
             for (int k = 0; k < channel; k++)
             {
                 int t = i * width * channel + j * channel + k;
+
+                sum = abs((background[t]) - girl[t]);
+
                 if (
 
-                    abs((background[t]) - girl[t]) > 21 // reduce noise
-                )
+                    sum > 15)
                 {
-   
+
                     temp_array[t] = girl[t];
                 }
                 else
                 {
                     temp_array[t] = new_bg[t];
                 }
-
             }
         }
     }
@@ -48,7 +51,7 @@ int main()
 
     char path_img3[] = "./images/new_background.jpg";
 
-    char save_path[] = "./images/foreground-New.jpg";
+    char save_path[] = "./images/foreground-New-7_40pm.jpg";
 
     // read image data
     unsigned char *background = stbi_load(path_img1, &width, &height, &channel, 0);
